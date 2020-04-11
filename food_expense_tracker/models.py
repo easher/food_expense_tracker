@@ -1,9 +1,25 @@
+import datetime
 from food_expense_tracker import config
 from food_expense_tracker import db
+from sqlalchemy_utils import EncryptedType
+from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+    email = db.Column(EncryptedType(db.String, config.SECRET_AES_KEY, AesEngine, 'pkcs5'))
+    password = db.Column(EncryptedType(db.String, config.SECRET_AES_KEY, AesEngine, 'pkcs5'))
 
-    def __repr__(self):
-        return '<User %r>' % self.username
+class Account(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+class ExpenseLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    expense_name = db.Column(db.String(60), unique=False, nullibe=False)
+    expense_type = db.Column(db.Integer, nullable=False)
+    expense_cost = db.Column(db.BigInteger)
+    expense_time_utc = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
+
+

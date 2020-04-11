@@ -1,3 +1,5 @@
 flask==1.1.2
 mysqlclient==1.4.6
+sqlalchemy-utils==0.36.3
+cryptography==2.9
 -e git+https://github.com/pallets/flask-sqlalchemy.git@706982bb8a096220d29e5cef156950237753d89f#egg=flask_sqlalchemy
