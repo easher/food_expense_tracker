@@ -3,11 +3,14 @@ version: '3.1'
 
 services:
   app:
+    restart: always
+    build: .
     ports:
       - "5000:5000"
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    volumes:
+      - .:/app
+    entrypoint: ["flask", "run"]
   db:
     image: mysql:8.0.19
     ports:
