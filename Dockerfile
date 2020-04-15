@@ -8,5 +8,6 @@ COPY . .
 RUN pip3 install -r requirements.txt
 ENV LC_ALL=C.UTF-8
 ENV FLASK_RUN_HOST 0.0.0.0
-ENV FLASK_APP=food_expense_tracker 
+ENV FLASK_APP=food_expense_tracker
+ENV FLASK_ENV="development" 
 EXPOSE 5000/tcp
