@@ -7,7 +7,7 @@ from food_expense_tracker.models import User, Account
 
 from flask import request, jsonify
 from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token, create_refresh_token,
+     jwt_required, create_access_token, create_refresh_token,
     get_jwt_identity
 )
 
