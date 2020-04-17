@@ -1,6 +1,6 @@
 # Food Expense Tracker 
-User friendly way to track how much money you burn by eating food. See how much you spend per meal,
-and helps you optimize your food expenses.
+User friendly way to track how much money you burn by eating food. See how much you spend per meal, and recieve 
+helpful suggestions on how to optimize your food spending.
 
 
 # Development
