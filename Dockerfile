@@ -11,3 +11,4 @@ ENV FLASK_RUN_HOST 0.0.0.0
 ENV FLASK_APP=food_expense_tracker
 ENV FLASK_ENV="development" 
 EXPOSE 5000/tcp
+EXPOSE 5678/tcp

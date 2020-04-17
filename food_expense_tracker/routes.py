@@ -5,7 +5,6 @@ from food_expense_tracker import app
 from food_expense_tracker.models import ExpenseLog
 from food_expense_tracker.models import User, Account
 
-
 from flask import request, jsonify
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -117,3 +116,10 @@ def gen_db():
 def log_expense():
     posted_json = jsonify(request.json)
     return posted_json
+
+@app.route("/debug_connect", methods=['GET'])
+def debug_connect():
+    import ptvsd
+    ptvsd.enable_attach(address=("0.0.0.0", 5678))
+    ptvsd.wait_for_attach()
+    return "True" 
