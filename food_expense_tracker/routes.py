@@ -7,13 +7,9 @@ from food_expense_tracker.models import User, Account
 
 from flask import request, jsonify
 from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token,
+    JWTManager, jwt_required, create_access_token, create_refresh_token,
     get_jwt_identity
 )
-
-# Setup the Flask-JWT-Extended extension
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
-jwt = JWTManager(app)
 
 @app.route('/api/login', methods = ['POST'])
 def login():
@@ -27,17 +23,20 @@ def login():
     isValidRequest = validator.validate(request.json)
     if not isValidRequest:
         return jsonify(validator.errors)
-    
-    password = json_request_data.get('password')
     username = json_request_data.get('username')
-    # check that password matches username
-    # if not, return 400
+    username = username.lower()
     
-    if password != 'password':
-        return jsonify({"msg": "incorrect password"}), 400
+    login_user = User.query.filter_by(username=username).first() 
+    if not login_user:
+        return jsonify(login_error="Invalid login"), 400
 
-    access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token), 200
+    password = json_request_data.get('password')
+
+    if password == login_user.password:
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify(login_error="Invalid login"), 400
 
 
 # Protect a view with jwt_required, which requires a valid access token
@@ -91,12 +90,14 @@ def new_user():
     db.session.add(account)
     db.session.commit()
     
-    user_account = Account.query.filter_by(email=email)
+    user_account = Account.query.filter_by(email=email).first()
     user = User()
     user.email = email
     user.username = username
     user.password = password
-    user.account = user_account
+    user.account_id = user_account.id
+
+    db.session.add(user)
     db.session.commit()
 
     return user.username
