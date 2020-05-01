@@ -3,5 +3,12 @@ Flask-JWT-Extended==3.24.1
 mysqlclient==1.4.6
 sqlalchemy-utils==0.36.3
 cryptography==2.9
-cerberus
 git+https://github.com/pallets/flask-sqlalchemy.git@706982bb8a096220d29e5cef156950237753d89f#egg=flask_sqlalchemy
+
+# input validation library
+cerberus==1.3.2
+
+#debug tool
+git+https://github.com/microsoft/ptvsd.git@2731604#egg=ptvsd
+
+

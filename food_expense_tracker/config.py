@@ -1,2 +1,5 @@
-SQLALCHEMY_DATABASE_URI = "mysql://root:example@db:3306/food_expense_tracker" #environ.get('SQLALCHEMY_DATABASE_URI')
-SECRET_AES_KEY = "asillysecretkey"
+import os
+
+SQLALCHEMY_DATABASE_URI = os.environ.get('CONFIG_SQLALCHEMY_DATABASE_URI')
+SECRET_AES_KEY = os.environ.get('CONFIG_SQLALCHEMY_DATABASE_FEILD_AES_KEY')
+JWT_SECRET_KEY = os.environ.get('CONFIG_JWT_SECRET_KEY')
